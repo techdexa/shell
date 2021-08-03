@@ -76,5 +76,6 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN dpkg --add-architecture i386 && apt-get update && apt-get -y dist-upgrade
+RUN echo root:qwert | chpasswd
 
 CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon on;' &&  qbittorrent-nox -d --webui-port=8080 && cd /usr/src/app && mkdir Downloads && bash start.sh
