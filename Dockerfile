@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update
 RUN apt-get -qq install -y --no-install-recommends curl git p7zip mc lynx w3m gnupg2 unzip wget pv jq
-RUN echo -e "newPassword\nnewPassword" | passwd root"
+
 # add mkvtoolnix
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
