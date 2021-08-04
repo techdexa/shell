@@ -4,8 +4,7 @@ FROM python:3-slim-buster
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update
-RUN apt-get -qq install -y --no-install-recommends curl git p7zip mc lynx w3m gnupg2 unzip wget pv jq
-
+RUN apt-get -qq install -y --no-install-recommends curl git p7zip mc lynx w3m gnupg2 rclone cowsay tesseract barcode zbar toilet tree tar nano figlet cat mupdf mtpaint unzip wget pv jq
 # add mkvtoolnix
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
@@ -76,6 +75,5 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN dpkg --add-architecture i386 && apt-get update && apt-get -y dist-upgrade
-RUN echo root:qwert | chpasswd
 
 CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon on;' &&  qbittorrent-nox -d --webui-port=8080 && cd /usr/src/app && mkdir Downloads && bash start.sh
