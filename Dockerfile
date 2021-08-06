@@ -4,16 +4,20 @@ FROM python:3-slim-buster
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update
-RUN apt-get -qq install -y --no-install-recommends curl git fuse p7zip mc lynx w3m gnupg2 rclone cowsay tree tar nano unzip wget pv jq
+RUN apt-get -qq install -y --no-install-recommends curl git fuse p7zip mc lynx w3m gnupg2 rclone cowsay tree tar nano unzip wget pv jq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
 # add mkvtoolnix
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
 RUN sh -c 'echo "deb https://mkvtoolnix.download/debian/ buster main" >> /etc/apt/sources.list.d/bunkus.org.list' && \
     sh -c 'echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list' && apt update && apt install -y mkvtoolnix
-    
-RUN apt-get update && apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt-get -qq update && apt-get -qq install -y --no-install-recommends python3.9
+RUN wget https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tgz && \
+    tar -xf Python-3.9.1.tgz && \
+    cd Python-3.9.1 && \
+    ./configure --enable-optimizations && \
+    make -j 2 && \
+    make altinstall && \
+    cd ..
+ 
 # install required packages
 RUN apt-get update && apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
