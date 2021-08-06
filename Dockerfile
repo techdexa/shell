@@ -12,8 +12,8 @@ RUN sh -c 'echo "deb https://mkvtoolnix.download/debian/ buster main" >> /etc/ap
     sh -c 'echo deb http://deb.debian.org/debian buster main contrib non-free | tee -a /etc/apt/sources.list' && apt update && apt install -y mkvtoolnix
     
 RUN apt-get update && apt-get install -y software-properties-common && \
-    add-apt-repository ppa:tsl0922/ttyd-dev && \
-    apt-get -qq update && apt-get -qq install -y --no-install-recommends ttyd
+    add-apt-repository ppa:deadsnakes/ppa -y && \
+    apt-get -qq update && apt-get -qq install -y --no-install-recommends python3.9
 # install required packages
 RUN apt-get update && apt-get install -y software-properties-common && \
     rm -rf /var/lib/apt/lists/* && \
