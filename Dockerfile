@@ -4,7 +4,7 @@ FROM python:3-slim-buster
 WORKDIR /usr/src/app
 RUN chmod 777 /usr/src/app
 RUN apt-get -qq update
-RUN apt-get -qq install -y --no-install-recommends curl git fuse p7zip mc lynx w3m gnupg2 rclone cowsay tree tar nano unzip wget pv jq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev openssh tmate libbz2-dev
+RUN apt-get -qq install -y --no-install-recommends curl git fuse p7zip mc lynx w3m gnupg2 rclone cowsay tree tar nano unzip wget pv jq build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev openssh-client tmate libbz2-dev
 # add mkvtoolnix
 RUN wget -q -O - https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt | apt-key add - && \
     wget -qO - https://ftp-master.debian.org/keys/archive-key-10.asc | apt-key add -
